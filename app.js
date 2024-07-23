@@ -56,6 +56,15 @@ var uiController = (function () {
             document.querySelector(DOMsrings.dateLabel).textContent = unuudur.getFullYear() + " оны " + unuudur.getMonth() + " сарын ";
         },
 
+        changeType: function(){
+            var fields = document.querySelectorAll(DOMsrings.inputType + ', ' + DOMsrings.inputDescription + ', ' + DOMsrings.inputValue);
+            nodeListForeach(fields, function(el){
+                el.classList.toggle("red-focus");
+            });
+
+            document.querySelector(DOMsrings.addBtn).classList.toggle("red");
+        },
+
         getInput: function () {
             return {
                 type: document.querySelector(DOMsrings.inputType).value,
@@ -201,6 +210,8 @@ var financeController = (function () {
         data.huvi = 0;
         },
 
+
+
         calculatePercentages: function(){
         data.items.exp.forEach(function(el){
         el.calcPercentage(data.totals.inc);
@@ -313,6 +324,8 @@ var appController = (function (uiController, financeController) {
                 ctrlAddItem();
             }
         });
+
+        document.querySelector(DOM.inputType).addEventListener("change", uiController.changeType);
         document.querySelector(DOM.containerDiv).addEventListener('click', function(event){
             //ustgah x tovchiin parentNode^5 deer ID bgaag gargaj avch huvisagchid ugch bna...
             var id = event.target.parentNode.parentNode.parentNode.parentNode.id;
